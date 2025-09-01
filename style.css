@@ -1,0 +1,181 @@
+body {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    background: #fdf2e9;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+
+/* Nuevas líneas para la imagen de fondo */
+    background-image: url('https://source.unsplash.com/random/1920x1080/?kids,fun,colors');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.game-container {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 90%;
+    max-width: 600px;
+}
+
+h1 {
+    color: #ff6b6b;
+}
+
+.audio-panel {
+    margin-bottom: 20px;
+}
+
+#playAudioBtn {
+    background: #4ecdc4;
+    border: none;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    font-size: 3em;
+    cursor: pointer;
+    box-shadow: 0 4px #3aa8a0;
+    transition: transform 0.1s ease;
+}
+
+#playAudioBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px #3aa8a0;
+}
+
+#playAudioBtn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px #3aa8a0;
+}
+
+p {
+    font-size: 1.2em;
+    color: #555;
+}
+
+.options-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.option-btn {
+    background: #ffe66d;
+    border: 4px solid #f9c74f;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.option-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.option-btn.correct {
+    background: #a8e063;
+    border-color: #6a9c3d;
+}
+
+.option-btn.incorrect {
+    background: #e54b4b;
+    border-color: #9c2a2a;
+}
+
+.option-btn img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.feedback {
+    font-size: 1.5em;
+    font-weight: bold;
+    min-height: 30px;
+    margin-top: 20px;
+}
+
+.next-btn {
+    background: #ff6b6b;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px #d85757;
+    transition: transform 0.1s ease;
+}
+
+.next-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px #d85757;
+}
+
+.next-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px #d85757;
+}
+
+/* Estilos para la Pantalla de Inicio */
+.start-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.85); /* Fondo semitransparente */
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 500px;
+}
+
+.start-screen h1 {
+    font-size: 2.5em;
+    color: #ff6b6b;
+    margin-bottom: 10px;
+}
+
+.start-screen p {
+    font-size: 1.2em;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+.start-button {
+    background: #4ecdc4;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.5em;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px #3aa8a0;
+    transition: transform 0.1s ease;
+}
+
+.start-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px #3aa8a0;
+}
+
+.start-button:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px #3aa8a0;
+}
+
+/* Regla para ocultar y mostrar elementos */
+.hidden {
+    display: none;
+}
