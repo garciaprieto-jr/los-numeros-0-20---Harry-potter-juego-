@@ -9,8 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const nextBtn = document.getElementById('nextBtn');
 
     // URLs de los efectos de sonido
-    const soundEffectCorrect = 'https://github.com/garciaprieto-jr/los-numeros-0-20---Harry-potter-juego-/raw/refs/heads/garciaprieto-jr-audio/Right Answer.mp3';
-    const soundEffectIncorrect = 'https://github.com/garciaprieto-jr/los-numeros-0-20---Harry-potter-juego-/raw/refs/heads/garciaprieto-jr-audio/Wrong Answer.mp3';
+    const soundEffectCorrect = 'https://raw.githubusercontent.com/garciaprieto-jr/los-numeros-0-20---Harry-potter-juego-/garciaprieto-jr-audio/Right%20Answer.mp3';
+    const soundEffectIncorrect = 'https://raw.githubusercontent.com/garciaprieto-jr/los-numeros-0-20---Harry-potter-juego-/garciaprieto-jr-audio/Wrong%20Answer.mp3';
 
     // Datos del juego: números, imágenes y audios del 0 al 20
     // NOTA: Reemplaza las URL de las imágenes y audios con tus propios archivos.
@@ -37,7 +37,30 @@ document.addEventListener('DOMContentLoaded', () => {
         { number: 19, audio: 'https://github.com/garciaprieto-jr/los-numeros-0-20---Harry-potter-juego-/raw/refs/heads/garciaprieto-jr-audio/19.mp3', image: 'https://raw.githubusercontent.com/garciaprieto-jr/los-numeros-0-20---Harry-potter-juego-/garciaprieto-jr-img/19.png' },
         { number: 20, audio: 'https://github.com/garciaprieto-jr/los-numeros-0-20---Harry-potter-juego-/raw/refs/heads/garciaprieto-jr-audio/20.mp3', image: 'https://raw.githubusercontent.com/garciaprieto-jr/los-numeros-0-20---Harry-potter-juego-/garciaprieto-jr-img/20.png' },
     ];
-    
+    const handleChoice = (selectedNumber, selectedButton) => {
+        if (!isClickable) return;
+
+        isClickable = false;
+        
+        const isCorrect = selectedNumber === currentRoundData.correct;
+        
+        if (isCorrect) {
+            feedback.textContent = '¡Correcto!';
+            feedback.style.color = '#4CAF50';
+            selectedButton.classList.add('correct');
+            // Play the correct sound effect
+            new Audio(soundEffectCorrect).play();
+        } else {
+            feedback.textContent = '¡Incorrecto! Intenta de nuevo.';
+            feedback.style.color = '#E53935';
+            selectedButton.classList.add('incorrect');
+            // Play the incorrect sound effect
+            new Audio(soundEffectIncorrect).play();
+            document.querySelector(`.option-btn img[data-number="${currentRoundData.correct}"]`).parentNode.classList.add('correct');
+        }
+        
+        nextBtn.style.display = 'block';
+    };
     let currentRoundData = {};
     let isClickable = false;
 
