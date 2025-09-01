@@ -32,6 +32,9 @@ h1 {
 .audio-panel {
     margin-bottom: 20px;
 }
+.audio-panel p {
+    color: red; /* O el código hexadecimal que prefieras, como #FF0000 */
+}
 
 #playAudioBtn {
     background: #4ecdc4;
