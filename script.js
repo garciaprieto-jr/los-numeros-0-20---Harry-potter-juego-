@@ -9,11 +9,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const character = document.getElementById('character');
     const chessboard = document.getElementById('chessboard');
 
-    // URLs de los efectos de sonido
+    // URLs de los efectos de sonido y videos de "muerte"
     const soundEffectCorrect = 'https://raw.githubusercontent.com/garciaprieto-jr/los-numeros-0-20---Harry-potter-juego-/garciaprieto-jr-audio/Right%20Answer.mp3';
     const soundEffectIncorrect = 'https://raw.githubusercontent.com/garciaprieto-jr/los-numeros-0-20---Harry-potter-juego-/garciaprieto-jr-audio/Wrong%20Answer.mp3';
+    
+    const chessDeathVideos = [
+        "https://youtu.be/J6qBwW01H1Y?si=L8Wj2k5y0d42lWk0",
+        "https://youtu.be/J6qBwW01H1Y?si=L8Wj2k5y0d42lWk0",
+        "https://youtu.be/J6qBwW01H1Y?si=L8Wj2k5y0d42lWk0"
+    ];
 
-    // Datos del juego: números, imágenes y audios del 0 al 20
     const gameData = [
         { number: 0, audio: 'https://raw.githubusercontent.com/garciaprieto-jr/los-numeros-0-20---Harry-potter-juego-/garciaprieto-jr-audio/00.mp3', image: 'https://raw.githubusercontent.com/garciaprieto-jr/los-numeros-0-20---Harry-potter-juego-/garciaprieto-jr-img/00.png' },
         { number: 1, audio: 'https://raw.githubusercontent.com/garciaprieto-jr/los-numeros-0-20---Harry-potter-juego-/garciaprieto-jr-audio/01.mp3', image: 'https://raw.githubusercontent.com/garciaprieto-jr/los-numeros-0-20---Harry-potter-juego-/garciaprieto-jr-img/01.png' },
@@ -38,11 +43,12 @@ document.addEventListener('DOMContentLoaded', () => {
         { number: 20, audio: 'https://raw.githubusercontent.com/garciaprieto-jr/los-numeros-0-20---Harry-potter-juego-/garciaprieto-jr-audio/20.mp3', image: 'https://raw.githubusercontent.com/garciaprieto-jr/los-numeros-0-20---Harry-potter-juego-/garciaprieto-jr-img/20.png' },
     ];
     
-   let currentRoundData = {};
+    let currentRoundData = {};
     let isClickable = false;
     let characterPosition = { row: 7, col: 0 };
     const rows = 8;
     const cols = 8;
+    let errorsCount = 0;
 
     const shuffleArray = (array) => {
         for (let i = array.length - 1; i > 0; i--) {
@@ -63,7 +69,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const square = document.createElement('div');
             chessboard.appendChild(square);
         }
-        // Se vuelve a insertar el personaje en el tablero después de limpiar el tablero
         chessboard.appendChild(character);
         
         const correctItem = gameData[Math.floor(Math.random() * gameData.length)];
@@ -119,6 +124,16 @@ document.addEventListener('DOMContentLoaded', () => {
             selectedButton.classList.add('incorrect');
             new Audio(soundEffectIncorrect).play();
 
+            errorsCount++;
+
+            if (errorsCount >= 3) {
+                endGame("¡Game Over! La Reina Roja ha acabado con tu partida.");
+                return;
+            } else {
+                const videoUrl = chessDeathVideos[errorsCount - 1];
+                window.open(videoUrl, '_blank');
+            }
+            
             character.classList.add('hit');
             setTimeout(() => {
                 character.classList.remove('hit');
@@ -128,6 +143,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         nextBtn.style.display = 'block';
+    };
+
+    const endGame = (message) => {
+        gameContainer.classList.add('hidden');
+        startScreen.classList.remove('hidden');
+        startButton.textContent = "Volver a empezar";
+        document.getElementById('start-screen').querySelector('h1').textContent = message;
+        
+        // Reinicia las variables de estado del juego
+        errorsCount = 0;
+        characterPosition = { row: 7, col: 0 };
+        character.style.setProperty('--col', characterPosition.col);
+        character.style.setProperty('--row', characterPosition.row);
     };
 
     const startGame = () => {
