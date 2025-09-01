@@ -5,7 +5,7 @@ body {
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    background-image: url('URL-DE-TU-IMAGEN-DE-FONDO.jpg');
+    background-image: url('https://raw.githubusercontent.com/garciaprieto-jr/los-numeros-0-20---Harry-potter-juego-/garciaprieto-jr-img/ajedrez.png');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -155,7 +155,7 @@ h1 {
     position: absolute;
     width: 75px;
     height: 75px;
-    background-image: url('URL-DE-TU-PERSONAJE.png'); /* URL de la imagen de tu personaje */
+    background-image: url('https://raw.githubusercontent.com/garciaprieto-jr/los-numeros-0-20---Harry-potter-juego-/garciaprieto-jr-img/ron-chess.jpg'); /* URL de la imagen de tu personaje */
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
