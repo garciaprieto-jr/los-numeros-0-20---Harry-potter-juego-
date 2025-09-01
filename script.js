@@ -2,11 +2,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const startScreen = document.getElementById('start-screen');
     const gameContainer = document.getElementById('game-container');
     const startButton = document.getElementById('startButton');
-
     const playAudioBtn = document.getElementById('playAudioBtn');
     const optionsContainer = document.getElementById('options-container');
     const feedback = document.getElementById('feedback');
     const nextBtn = document.getElementById('nextBtn');
+    const character = document.getElementById('character');
+    const chessboard = document.getElementById('chessboard');
 
     // URLs de los efectos de sonido
     const soundEffectCorrect = 'https://raw.githubusercontent.com/garciaprieto-jr/los-numeros-0-20---Harry-potter-juego-/garciaprieto-jr-audio/Right%20Answer.mp3';
@@ -37,8 +38,11 @@ document.addEventListener('DOMContentLoaded', () => {
         { number: 20, audio: 'https://raw.githubusercontent.com/garciaprieto-jr/los-numeros-0-20---Harry-potter-juego-/garciaprieto-jr-audio/20.mp3', image: 'https://raw.githubusercontent.com/garciaprieto-jr/los-numeros-0-20---Harry-potter-juego-/garciaprieto-jr-img/20.png' },
     ];
     
-    let currentRoundData = {};
+   let currentRoundData = {};
     let isClickable = false;
+    let characterPosition = { row: 7, col: 0 };
+    const rows = 8;
+    const cols = 8;
 
     const shuffleArray = (array) => {
         for (let i = array.length - 1; i > 0; i--) {
@@ -53,7 +57,15 @@ document.addEventListener('DOMContentLoaded', () => {
         feedback.textContent = '';
         nextBtn.style.display = 'none';
         optionsContainer.innerHTML = '';
+        chessboard.innerHTML = '';
 
+        for (let i = 0; i < rows * cols; i++) {
+            const square = document.createElement('div');
+            chessboard.appendChild(square);
+        }
+        // Se vuelve a insertar el personaje en el tablero después de limpiar el tablero
+        chessboard.appendChild(character);
+        
         const correctItem = gameData[Math.floor(Math.random() * gameData.length)];
         currentRoundData.correct = correctItem.number;
         currentRoundData.audio = new Audio(correctItem.audio);
@@ -76,33 +88,42 @@ document.addEventListener('DOMContentLoaded', () => {
             currentRoundData.audio.play();
         };
 
-        // Se elimina la reproducción automática para evitar bloqueos
-        // setTimeout(() => {
-        //     currentRoundData.audio.play();
-        // }, 500);
+        setTimeout(() => {
+            currentRoundData.audio.play();
+        }, 500);
     };
 
     const handleChoice = (selectedNumber, selectedButton) => {
         if (!isClickable) return;
-
         isClickable = false;
         
         const isCorrect = selectedNumber === currentRoundData.correct;
         
         if (isCorrect) {
-            feedback.textContent = '¡Correcto!';
+            feedback.textContent = '¡Correcto! ¡Avanza una casilla!';
             feedback.style.color = '#4CAF50';
             selectedButton.classList.add('correct');
-            // Reproduce el sonido de acierto
-            const correctAudio = new Audio(soundEffectCorrect);
-            correctAudio.play();
+            new Audio(soundEffectCorrect).play();
+
+            characterPosition.col++;
+            if (characterPosition.col >= cols) {
+                characterPosition.col = 0;
+                characterPosition.row--;
+            }
+            
+            character.style.setProperty('--col', characterPosition.col);
+            character.style.setProperty('--row', characterPosition.row);
         } else {
-            feedback.textContent = '¡Incorrecto! Intenta de nuevo.';
+            feedback.textContent = '¡Incorrecto! ¡Ron es golpeado!';
             feedback.style.color = '#E53935';
             selectedButton.classList.add('incorrect');
-            // Reproduce el sonido de error
-            const incorrectAudio = new Audio(soundEffectIncorrect);
-            incorrectAudio.play();
+            new Audio(soundEffectIncorrect).play();
+
+            character.classList.add('hit');
+            setTimeout(() => {
+                character.classList.remove('hit');
+            }, 500);
+            
             document.querySelector(`.option-btn img[data-number="${currentRoundData.correct}"]`).parentNode.classList.add('correct');
         }
         
