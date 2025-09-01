@@ -3,39 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¡Aprende los Números!</title>
+    <title>Juego de los Números de Harry Potter</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <div id="start-screen" class="start-screen">
-        <h1>¡Bienvenidos al Juego de Números!</h1>
-        <p>Aprende a reconocer los números escuchando el sonido y seleccionando la imagen correcta.</p>
-        <button id="startButton" class="start-button">Comenzar a Jugar</button>
+        <h1>¡Bienvenido al Juego de los Números!</h1>
+        <p>Escucha el número y encuentra la imagen correcta para moverte en el tablero.</p>
+        <button id="startButton">Comenzar</button>
     </div>
 
-   <div id="game-container" class="game-container hidden">
-    <h1>Escucha y Encuentra el Número</h1>
-    <div class="audio-panel">
-        <button id="playAudioBtn" aria-label="Reproducir audio">
-            🔊
-        </button>
-        <p>Haz clic para escuchar el número</p>
-    </div>
-    <div class="chessboard-wrapper">
-        <div id="chessboard">
-            <div id="character" style="--row: 7; --col: 0;"></div>
+    <div id="game-container" class="game-container hidden">
+        <h1>Escucha y Encuentra el Número</h1>
+        <div class="audio-panel">
+            <button id="playAudioBtn" aria-label="Reproducir audio">
+                🔊
+            </button>
+            <p>Haz clic para escuchar el número</p>
         </div>
-    </div>
-</div>
         
+        <div class="chessboard-wrapper">
+            <div id="chessboard">
+                <div id="character" style="--row: 7; --col: 0;"></div>
+            </div>
+        </div>
+
         <div id="options-container" class="options-container">
             </div>
 
-        <div id="feedback" class="feedback"></div>
+        <p id="feedback"></p>
 
-        <button id="nextBtn" class="next-btn" style="display: none;">Siguiente</button>
+        <button id="nextBtn" class="next-btn hidden">Siguiente</button>
     </div>
-    
+
     <script src="script.js"></script>
 </body>
 </html>
