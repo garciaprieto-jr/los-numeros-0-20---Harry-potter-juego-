@@ -14,7 +14,13 @@ body {
     background-repeat: no-repeat;
     background-position: center center;
 }
-
+.audio-panel p {
+    color: red; /* O el código hexadecimal que prefieras, como #FF0000 */
+    background-color: RGB(255, 255, 255); /* Fondo blanco  */
+    padding: 15px;
+    border-radius: 10px;
+    margin: 20px auto; /* Para centrarlo si es necesario */
+}
 .game-container {
     background: transparent;
     padding: 30px;
@@ -31,9 +37,6 @@ h1 {
 
 .audio-panel {
     margin-bottom: 20px;
-}
-.audio-panel p {
-    color: red; /* O el código hexadecimal que prefieras, como #FF0000 */
 }
 
 #playAudioBtn {
@@ -60,7 +63,7 @@ h1 {
 
 p {
     font-size: 1.2em;
-    color: ##d43313;
+    color: #d43313;
 }
 
 .options-container {
