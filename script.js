@@ -2,23 +2,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const startScreen = document.getElementById('start-screen');
     const gameContainer = document.getElementById('game-container');
     const startButton = document.getElementById('startButton');
+
     const playAudioBtn = document.getElementById('playAudioBtn');
     const optionsContainer = document.getElementById('options-container');
     const feedback = document.getElementById('feedback');
     const nextBtn = document.getElementById('nextBtn');
-    const character = document.getElementById('character');
-    const chessboard = document.getElementById('chessboard');
 
-    // URLs de los efectos de sonido y videos de "muerte"
+    // URLs de los efectos de sonido
     const soundEffectCorrect = 'https://raw.githubusercontent.com/garciaprieto-jr/los-numeros-0-20---Harry-potter-juego-/garciaprieto-jr-audio/Right%20Answer.mp3';
     const soundEffectIncorrect = 'https://raw.githubusercontent.com/garciaprieto-jr/los-numeros-0-20---Harry-potter-juego-/garciaprieto-jr-audio/Wrong%20Answer.mp3';
-    
-    const chessDeathVideos = [
-        "https://youtu.be/J6qBwW01H1Y?si=L8Wj2k5y0d42lWk0",
-        "https://youtu.be/J6qBwW01H1Y?si=L8Wj2k5y0d42lWk0",
-        "https://youtu.be/J6qBwW01H1Y?si=L8Wj2k5y0d42lWk0"
-    ];
 
+    // Datos del juego: números, imágenes y audios del 0 al 20
     const gameData = [
         { number: 0, audio: 'https://raw.githubusercontent.com/garciaprieto-jr/los-numeros-0-20---Harry-potter-juego-/garciaprieto-jr-audio/00.mp3', image: 'https://raw.githubusercontent.com/garciaprieto-jr/los-numeros-0-20---Harry-potter-juego-/garciaprieto-jr-img/00.png' },
         { number: 1, audio: 'https://raw.githubusercontent.com/garciaprieto-jr/los-numeros-0-20---Harry-potter-juego-/garciaprieto-jr-audio/01.mp3', image: 'https://raw.githubusercontent.com/garciaprieto-jr/los-numeros-0-20---Harry-potter-juego-/garciaprieto-jr-img/01.png' },
@@ -45,10 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     let currentRoundData = {};
     let isClickable = false;
-    let characterPosition = { row: 7, col: 0 };
-    const rows = 8;
-    const cols = 8;
-    let errorsCount = 0;
 
     const shuffleArray = (array) => {
         for (let i = array.length - 1; i > 0; i--) {
@@ -63,14 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
         feedback.textContent = '';
         nextBtn.style.display = 'none';
         optionsContainer.innerHTML = '';
-        chessboard.innerHTML = '';
 
-        for (let i = 0; i < rows * cols; i++) {
-            const square = document.createElement('div');
-            chessboard.appendChild(square);
-        }
-        chessboard.appendChild(character);
-        
         const correctItem = gameData[Math.floor(Math.random() * gameData.length)];
         currentRoundData.correct = correctItem.number;
         currentRoundData.audio = new Audio(correctItem.audio);
@@ -93,69 +76,37 @@ document.addEventListener('DOMContentLoaded', () => {
             currentRoundData.audio.play();
         };
 
-        setTimeout(() => {
-            currentRoundData.audio.play();
-        }, 500);
+        // Se elimina la reproducción automática para evitar bloqueos
+        // setTimeout(() => {
+        //     currentRoundData.audio.play();
+        // }, 500);
     };
 
     const handleChoice = (selectedNumber, selectedButton) => {
         if (!isClickable) return;
+
         isClickable = false;
         
         const isCorrect = selectedNumber === currentRoundData.correct;
         
         if (isCorrect) {
-            feedback.textContent = '¡Correcto! ¡Avanza una casilla!';
+            feedback.textContent = '¡Correcto!';
             feedback.style.color = '#4CAF50';
             selectedButton.classList.add('correct');
-            new Audio(soundEffectCorrect).play();
-
-            characterPosition.col++;
-            if (characterPosition.col >= cols) {
-                characterPosition.col = 0;
-                characterPosition.row--;
-            }
-            
-            character.style.setProperty('--col', characterPosition.col);
-            character.style.setProperty('--row', characterPosition.row);
+            // Reproduce el sonido de acierto
+            const correctAudio = new Audio(soundEffectCorrect);
+            correctAudio.play();
         } else {
-            feedback.textContent = '¡Incorrecto! ¡Ron es golpeado!';
+            feedback.textContent = '¡Incorrecto! Intenta de nuevo.';
             feedback.style.color = '#E53935';
             selectedButton.classList.add('incorrect');
-            new Audio(soundEffectIncorrect).play();
-
-            errorsCount++;
-
-            if (errorsCount >= 3) {
-                endGame("¡Game Over! La Reina Roja ha acabado con tu partida.");
-                return;
-            } else {
-                const videoUrl = chessDeathVideos[errorsCount - 1];
-                window.open(videoUrl, '_blank');
-            }
-            
-            character.classList.add('hit');
-            setTimeout(() => {
-                character.classList.remove('hit');
-            }, 500);
-            
+            // Reproduce el sonido de error
+            const incorrectAudio = new Audio(soundEffectIncorrect);
+            incorrectAudio.play();
             document.querySelector(`.option-btn img[data-number="${currentRoundData.correct}"]`).parentNode.classList.add('correct');
         }
         
         nextBtn.style.display = 'block';
-    };
-
-    const endGame = (message) => {
-        gameContainer.classList.add('hidden');
-        startScreen.classList.remove('hidden');
-        startButton.textContent = "Volver a empezar";
-        document.getElementById('start-screen').querySelector('h1').textContent = message;
-        
-        // Reinicia las variables de estado del juego
-        errorsCount = 0;
-        characterPosition = { row: 7, col: 0 };
-        character.style.setProperty('--col', characterPosition.col);
-        character.style.setProperty('--row', characterPosition.row);
     };
 
     const startGame = () => {
