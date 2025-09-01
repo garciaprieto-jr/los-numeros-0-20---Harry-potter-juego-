@@ -13,14 +13,20 @@
         <button id="startButton" class="start-button">Comenzar a Jugar</button>
     </div>
 
-    <div id="game-container" class="game-container hidden">
-        <h1>Escucha y Encuentra el Número</h1>
-        <div class="audio-panel">
-            <button id="playAudioBtn" aria-label="Reproducir audio">
-                🔊
-            </button>
-            <p>Haz clic para escuchar el número</p>
+   <div id="game-container" class="game-container hidden">
+    <h1>Escucha y Encuentra el Número</h1>
+    <div class="audio-panel">
+        <button id="playAudioBtn" aria-label="Reproducir audio">
+            🔊
+        </button>
+        <p>Haz clic para escuchar el número</p>
+    </div>
+    <div class="chessboard-wrapper">
+        <div id="chessboard">
+            <div id="character" style="--row: 7; --col: 0;"></div>
         </div>
+    </div>
+</div>
         
         <div id="options-container" class="options-container">
             </div>
