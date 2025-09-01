@@ -8,6 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const feedback = document.getElementById('feedback');
     const nextBtn = document.getElementById('nextBtn');
 
+    // URLs de los efectos de sonido
+    const soundEffectCorrect = 'https://github.com/garciaprieto-jr/los-numeros-0-20---Harry-potter-juego-/raw/refs/heads/garciaprieto-jr-audio/Right Answer.mp3';
+    const soundEffectIncorrect = 'https://github.com/garciaprieto-jr/los-numeros-0-20---Harry-potter-juego-/raw/refs/heads/garciaprieto-jr-audio/Wrong Answer.mp3';
+
     // Datos del juego: números, imágenes y audios del 0 al 20
     // NOTA: Reemplaza las URL de las imágenes y audios con tus propios archivos.
     const gameData = [
